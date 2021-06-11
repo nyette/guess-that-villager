@@ -1,20 +1,7 @@
+import getRandomVillager from "../services/getRandomVillager";
 import { useState, useEffect } from "react";
 import Score from "./Score";
 import Result from "./Result";
-
-const getRandomVillager = async () => {
-  const maxVillagerId = 391;
-  const randomVillagerId = Math.round(Math.random() * maxVillagerId);
-  const apiUrl = "https://acnhapi.com/v1/villagers/";
-  const villagerUrl = apiUrl + randomVillagerId;
-  try {
-    const res = await fetch(villagerUrl);
-    const villager = await res.json();
-    return villager;
-  } catch (e) {
-    console.error(e);
-  }
-}
 
 const Villager = (props) => {
   const [villager, setVillager] = useState({});
@@ -48,7 +35,7 @@ const Villager = (props) => {
     } else {
       // Otherwise, end the game
       setResultClassName("wrong");
-      setResult("Wrong");
+      setResult("Game Over");
       setTimeout(() => {
         props.setGameStarted(!props.gameStarted);
       }, 2000);
@@ -58,7 +45,7 @@ const Villager = (props) => {
   return (
     <div>
       <Score score={score} />
-      {villager["icon_uri"] ? <img src={villager["icon_uri"]} alt="villager" /> : <p>Loading...</p>}
+      {villager["icon_uri"] ? <img src={villager["icon_uri"]} alt="villager" /> : <p className="my-3">Loading...</p>}
       <form onSubmit={handleSubmit}>
         <input type="text" placeholder="Enter the villager's name..." name="guess" value={guess} onChange={(e) => setGuess(e.target.value)} />
         <button className="btn btn-primary" type="submit">Submit</button>
