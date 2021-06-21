@@ -1,15 +1,34 @@
-import { useState } from "react";
-import Home from "./Home";
+import { useReducer } from "react";
+import GameContext, { gameReducer, initialGame } from "./GameContext";
+import MainMenu from "./MainMenu";
+import Settings from "./Settings";
 import Villager from "./Villager";
+import Result from "./Result";
 
 const App = () => {
 
-  const [gameStarted, setGameStarted] = useState(false);
+  const [game, setGame] = useReducer(gameReducer, initialGame);
+
+  const renderGame = () => {
+    if (game.selectedOption === "Play") {
+      if (game.guessWasSubmitted) {
+        return <Result />;
+      } else {
+        return <Villager />;
+      }
+    } else if (game.selectedOption === "Settings") {
+      return <Settings />;
+    } else {
+      return <MainMenu />;
+    }
+  }
 
   return (
-    <div className="app">
-      {gameStarted ? <Villager gameStarted={gameStarted} setGameStarted={setGameStarted} /> : <Home gameStarted={gameStarted} setGameStarted={setGameStarted} />}
-    </div>
+    <GameContext.Provider value={{ game, setGame }}>
+      <div className="app">
+        {renderGame()}
+      </div>
+    </GameContext.Provider>
   );
 }
 

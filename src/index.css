@@ -34,10 +34,8 @@ h1, h2, h3, h4, h5, h6 {
 
 img {
   background-color: white;
-  border: 5px solid hotpink;
-  border-radius: 50%;
   height: auto;
-  margin: 2rem;
+  margin: 1rem;
   padding: 1rem;
   width: 50%;
 }
@@ -54,10 +52,6 @@ a {
 
 input {
   padding: 1rem;
-}
-
-.result {
-  margin: 1rem auto;
 }
 
 .correct {

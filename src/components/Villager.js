@@ -1,80 +1,75 @@
 import getRandomVillager from "../services/getRandomVillager";
-import { useState, useEffect, useRef } from "react";
-import Score from "./Score";
-import Result from "./Result";
+import { useContext, useRef, useEffect } from "react";
+import GameContext from "./GameContext";
 
-const Villager = (props) => {
-  const [villager, setVillager] = useState({});
-  const [guess, setGuess] = useState("");
-  const [score, setScore] = useState(0);
-  const [result, setResult] = useState("");
-  const [resultClassName, setResultClassName] = useState("");
+const Villager = () => {
+
+  const { game, setGame } = useContext(GameContext);
+
   const submitButtonRef = useRef(null);
-  const [timeLeft, setTimeLeft] = useState(10);
-  const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
-    getRandomVillager().then((randomVillager) => setVillager(randomVillager));
-  }, []);
+    setGame({
+      type: "START_FETCH"
+    });
+    getRandomVillager()
+    .then((randomVillager) => {
+      setGame({
+        type: "END_FETCH",
+        data: randomVillager
+      });
+    });
+  }, [setGame]);
 
   useEffect(() => {
     const countdown = setTimeout(() => {
-      setTimeLeft(timeLeft - 1);
-      if (timeLeft === 1) {
+      if (game.timeLeft === 0) {
         submitButtonRef.current.click();
+      } else {
+        setGame({
+          type: "DECREASE_TIME_LEFT"
+        });
       }
     }, 1000);
     return () => clearTimeout(countdown);
-  }, [timeLeft]);
+  }, [setGame, game.timeLeft]);
 
   const handleChange = (e) => {
-    setGuess(e.target.value);
+    setGame({
+      type: "CHANGE_GUESS",
+      data: e.target.value
+    });
   }
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Disable further submissions
-    setIsDisabled(true);
-    // Compare guess to data
-    if (guess === villager["name"]["name-USen"]) {
-      // If correct, increase score
-      setScore(score + 1);
-      // Reset guess
-      setGuess("");
-      // Show result
-      setResultClassName("correct");
-      setResult("Correct");
-      // Prepare for a new round
-      setTimeout(() => {
-        // Reset result
-        setResultClassName("");
-        setResult("");
-        // Allow submissions
-        setIsDisabled(false);
-      }, 2000);
-      // Change villager
-      getRandomVillager().then((randomVillager) => setVillager(randomVillager));
-      // Reset countdown
-      setTimeLeft(12);
+    setGame({
+      type: "SUBMIT_GUESS"
+    });
+    const language = "name-" + game["language"];
+    if (game["guess"] === game["villager"]["name"][language]) {
+      setGame({
+        type: "CHECK_GUESS",
+        data: true
+      });
+      setGame({
+        type: "INCREASE_SCORE"
+      });
     } else {
-      // Otherwise, end the game
-      setResultClassName("wrong");
-      setResult("Game Over");
-      setTimeout(() => {
-        props.setGameStarted(!props.gameStarted);
-      }, 2000);
+      setGame({
+        type: "CHECK_GUESS",
+        data: false
+      });
     }
   }
   
   return (
-    <div>
-      <Score score={score} />
-      {villager["icon_uri"] ? <img src={villager["icon_uri"]} alt="villager" /> : <p className="my-3">Loading...</p>}
+    <div className="container">
+      {game["villager"] ? <img src={game["villager"]["icon_uri"]} alt="villager" /> : <p>Loading...</p>}
       <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="Enter the villager's name" name="guess" value={guess} onChange={handleChange} />
-        <input type="submit" ref={submitButtonRef} className="btn btn-primary btn-lg" disabled={isDisabled} value={isDisabled ? "Submitted" : `Submit (${timeLeft})`} />
+        <input type="text" placeholder="Enter the villager's name" name="guess" value={game.guess} onChange={handleChange} />
+        <button type="submit" ref={submitButtonRef} className="btn btn-primary">{game.timeLeft > 0 ? `Submit (${game.timeLeft})` : "Submitted"}</button>
       </form>
-      {result === "" ? null : <Result resultClassName={resultClassName} result={result} />}
     </div>
   );
 }
