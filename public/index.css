@@ -3,7 +3,7 @@ html, body {
 }
 
 body {
-  background-image: url("./assets/bg.jpg");
+  background-image: url("/assets/bg.jpg");
   font-family: sans-serif;
   margin: 0;
   text-align: center;
@@ -51,7 +51,16 @@ a {
 }
 
 input {
+  display: block;
+  margin: 1rem auto;
+  max-width: 80%;
   padding: 1rem;
+}
+
+audio {
+  display: block;
+  margin: 1rem auto;
+  max-width: 80%;
 }
 
 .correct {
