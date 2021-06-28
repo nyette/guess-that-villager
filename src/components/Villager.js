@@ -1,25 +1,12 @@
-import getRandomVillager from "../services/getRandomVillager";
 import { useContext, useRef, useEffect } from "react";
 import GameContext from "./GameContext";
+import MusicPlayer from "./MusicPlayer";
 
 const Villager = () => {
 
   const { game, setGame } = useContext(GameContext);
 
   const submitButtonRef = useRef(null);
-
-  useEffect(() => {
-    setGame({
-      type: "START_FETCH"
-    });
-    getRandomVillager()
-    .then((randomVillager) => {
-      setGame({
-        type: "END_FETCH",
-        data: randomVillager
-      });
-    });
-  }, [setGame]);
 
   useEffect(() => {
     const countdown = setTimeout(() => {
@@ -55,21 +42,30 @@ const Villager = () => {
       setGame({
         type: "INCREASE_SCORE"
       });
+      setGame({
+        type: "CHANGE_MUSIC",
+        data: "/assets/music/correct.mp3"
+      });
     } else {
       setGame({
         type: "CHECK_GUESS",
         data: false
       });
+      setGame({
+        type: "CHANGE_MUSIC",
+        data: "/assets/music/wrong.mp3"
+      });
     }
   }
-  
+
   return (
     <div className="container">
-      {game["villager"] ? <img src={game["villager"]["icon_uri"]} alt="villager" /> : <p>Loading...</p>}
+      <img src={game["villager"]["icon_uri"]} alt="villager" />
       <form onSubmit={handleSubmit}>
         <input type="text" placeholder="Enter the villager's name" name="guess" value={game.guess} onChange={handleChange} />
         <button type="submit" ref={submitButtonRef} className="btn btn-primary">{game.timeLeft > 0 ? `Submit (${game.timeLeft})` : "Submitted"}</button>
       </form>
+      <MusicPlayer />
     </div>
   );
 }

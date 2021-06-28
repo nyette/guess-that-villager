@@ -21,6 +21,11 @@ export const initialGame = {
 
 export const gameReducer = (game, action) => {
   switch (action.type) {
+    case "CATCH_ERROR":
+      return {
+        ...game,
+        error: action.data
+      };
     case "SHOW_SETTINGS":
       return {
         ...game,
@@ -40,8 +45,7 @@ export const gameReducer = (game, action) => {
     case "START_FETCH":
       return {
         ...game,
-        isFetching: true,
-        villager: null
+        isFetching: true
       };
     case "END_FETCH":
       return {
@@ -70,6 +74,11 @@ export const gameReducer = (game, action) => {
         ...game,
         guessWasCorrect: action.data
       };
+    case "CHANGE_MUSIC":
+      return {
+        ...game,
+        music: action.data
+      };
     case "INCREASE_SCORE":
       return {
         ...game,
@@ -78,6 +87,7 @@ export const gameReducer = (game, action) => {
     case "START_NEXT_ROUND":
       return {
         ...game,
+        villager: null,
         guess: "",
         guessWasSubmitted: false,
         guessWasCorrect: null,
