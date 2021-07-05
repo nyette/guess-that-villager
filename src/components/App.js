@@ -1,7 +1,6 @@
 import { useReducer } from "react";
 import GameContext, { gameReducer, initialGame } from "./GameContext";
 import MainMenu from "./MainMenu";
-import Settings from "./Settings";
 import Loading from "./Loading";
 import Error from "./Error";
 import Villager from "./Villager";
@@ -26,8 +25,6 @@ const App = () => {
           }
         }
       }
-    } else if (game.selectedOption === "Settings") {
-      return <Settings />;
     } else {
       return <MainMenu />;
     }

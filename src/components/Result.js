@@ -16,9 +16,6 @@ const Result = () => {
         <button className="btn btn-primary" onClick={() => setGame({ type: "START_NEXT_ROUND" })}>
           Start Next Round
         </button>
-        <button className="btn btn-primary" onClick={() => setGame({ type: "RETURN_TO_MAIN_MENU" })}>
-          Return To Main Menu
-        </button>
       </div>
     );
   } else {

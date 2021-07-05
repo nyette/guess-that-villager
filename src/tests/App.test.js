@@ -9,8 +9,6 @@ import App from "../components/App";
 it("handles user input", async () => {
   render(<App />);
   expect(screen.queryByText(/Guess That Villager/i)).toBeInTheDocument();
-  // Settings
-  expect(screen.queryByText(/Settings/i)).toBeInTheDocument();
   // Play
   userEvent.click(screen.queryByText(/Play/i));
   expect(screen.queryByText(/Loading/i)).toBeInTheDocument();
@@ -36,7 +34,6 @@ it("handles user input", async () => {
   // Return To Main Menu
   userEvent.click(screen.queryByText(/Return To Main Menu/i));
   expect(screen.queryByText(/Guess That Villager/i)).toBeInTheDocument();
-  expect(screen.queryByText(/Play/i)).toBeInTheDocument();
 });
 
 it("tells the user about any errors", async () => {
@@ -53,4 +50,7 @@ it("tells the user about any errors", async () => {
   expect(screen.queryByText(/Loading/i)).toBeInTheDocument();
   await screen.findByText(/Error/i);
   expect(screen.queryByText(/Loading/i)).not.toBeInTheDocument();
+  // Return To Main Menu
+  userEvent.click(screen.queryByText(/Return To Main Menu/i));
+  expect(screen.queryByText(/Guess That Villager/i)).toBeInTheDocument();
 });

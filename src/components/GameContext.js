@@ -6,7 +6,6 @@ export default GameContext;
 
 export const initialGame = {
   error: null,
-  language: "USen",
   selectedOption: null,
   isRunning: false,
   isFetching: false,
@@ -25,16 +24,6 @@ export const gameReducer = (game, action) => {
       return {
         ...game,
         error: action.data
-      };
-    case "SHOW_SETTINGS":
-      return {
-        ...game,
-        selectedOption: "Settings"
-      };
-    case "CHANGE_LANGUAGE":
-      return {
-        ...game,
-        language: action.data
       };
     case "START_GAME":
       return {

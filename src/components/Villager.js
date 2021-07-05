@@ -33,8 +33,7 @@ const Villager = () => {
     setGame({
       type: "SUBMIT_GUESS"
     });
-    const language = "name-" + game["language"];
-    if (game["guess"] === game["villager"]["name"][language]) {
+    if (game["guess"] === game["villager"]["name"]["name-USen"]) {
       setGame({
         type: "CHECK_GUESS",
         data: true
