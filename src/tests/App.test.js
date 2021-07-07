@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import { server } from "../mocks/server";
@@ -25,10 +25,13 @@ it("handles user input", async () => {
   const nextImg = await screen.findByAltText("villager");
   expect(nextImg).toHaveAttribute("src", "https://acnhapi.com/v1/icons/villagers/354");
   expect(screen.queryByText(/Loading/i)).not.toBeInTheDocument();
-  userEvent.type(screen.queryByRole("textbox"), "");
   expect(screen.queryByRole("textbox")).toHaveValue("");
-  userEvent.click(screen.queryByText(/Submit/i));
-  expect(screen.queryByText(/Game Over/i)).toBeInTheDocument();
+  expect(screen.queryByText("Submit (10)")).toBeInTheDocument();
+  act(() => {
+    jest.advanceTimersByTime(10000);
+  });
+  expect(screen.queryByText("Submitted")).toBeInTheDocument();
+  await screen.findByText(/Game Over/i);
   // Replay
   expect(screen.queryByText(/Replay/i)).toBeInTheDocument();
   // Return To Main Menu
