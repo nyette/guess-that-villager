@@ -3,7 +3,6 @@ import GameContext from "./GameContext";
 import MusicPlayer from "./MusicPlayer";
 
 const Villager = () => {
-
   const { game, setGame } = useContext(GameContext);
 
   const submitButtonRef = useRef(null);
@@ -14,7 +13,7 @@ const Villager = () => {
         submitButtonRef.current.click();
       } else {
         setGame({
-          type: "DECREASE_TIME_LEFT"
+          type: "DECREASE_TIME_LEFT",
         });
       }
     }, 1000);
@@ -24,49 +23,57 @@ const Villager = () => {
   const handleChange = (e) => {
     setGame({
       type: "CHANGE_GUESS",
-      data: e.target.value
+      data: e.target.value,
     });
-  }
-  
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setGame({
-      type: "SUBMIT_GUESS"
+      type: "SUBMIT_GUESS",
     });
     if (game["guess"] === game["villager"]["name"]["name-USen"]) {
       setGame({
         type: "CHECK_GUESS",
-        data: true
+        data: true,
       });
       setGame({
-        type: "INCREASE_SCORE"
+        type: "INCREASE_SCORE",
       });
       setGame({
         type: "CHANGE_MUSIC",
-        data: "/assets/music/correct.mp3"
+        data: "/assets/music/correct.mp3",
       });
     } else {
       setGame({
         type: "CHECK_GUESS",
-        data: false
+        data: false,
       });
       setGame({
         type: "CHANGE_MUSIC",
-        data: "/assets/music/wrong.mp3"
+        data: "/assets/music/wrong.mp3",
       });
     }
-  }
+  };
 
   return (
     <div className="container">
       <img src={game["villager"]["icon_uri"]} alt="villager" />
       <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="Enter the villager's name" name="guess" value={game.guess} onChange={handleChange} />
-        <button type="submit" ref={submitButtonRef} className="btn btn-primary">{game.timeLeft > 0 ? `Submit (${game.timeLeft})` : "Submitted"}</button>
+        <input
+          type="text"
+          placeholder="Enter the villager's name"
+          name="guess"
+          value={game.guess}
+          onChange={handleChange}
+        />
+        <button type="submit" ref={submitButtonRef} className="btn btn-primary">
+          {game.timeLeft > 0 ? `Submit (${game.timeLeft})` : "Submitted"}
+        </button>
       </form>
       <MusicPlayer />
     </div>
   );
-}
+};
 
 export default Villager;

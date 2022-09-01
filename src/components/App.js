@@ -7,7 +7,6 @@ import Villager from "./Villager";
 import Result from "./Result";
 
 const App = () => {
-
   const [game, setGame] = useReducer(gameReducer, initialGame);
 
   const renderGame = () => {
@@ -28,15 +27,13 @@ const App = () => {
     } else {
       return <MainMenu />;
     }
-  }
+  };
 
   return (
     <GameContext.Provider value={{ game, setGame }}>
-      <div className="app">
-        {renderGame()}
-      </div>
+      <div className="app">{renderGame()}</div>
     </GameContext.Provider>
   );
-}
+};
 
 export default App;

@@ -3,7 +3,6 @@ import GameContext from "./GameContext";
 import MusicPlayer from "./MusicPlayer";
 
 const Result = () => {
-  
   const { game, setGame } = useContext(GameContext);
 
   if (game.guessWasCorrect) {
@@ -13,7 +12,10 @@ const Result = () => {
         <p>{game.score}</p>
         <h2 className="correct">Correct</h2>
         <MusicPlayer />
-        <button className="btn btn-primary" onClick={() => setGame({ type: "START_NEXT_ROUND" })}>
+        <button
+          className="btn btn-primary"
+          onClick={() => setGame({ type: "START_NEXT_ROUND" })}
+        >
           Start Next Round
         </button>
       </div>
@@ -25,15 +27,21 @@ const Result = () => {
         <p>{game.score}</p>
         <h2 className="wrong">Game Over</h2>
         <MusicPlayer />
-        <button className="btn btn-primary" onClick={() => setGame({ type: "REPLAY" })}>
+        <button
+          className="btn btn-primary"
+          onClick={() => setGame({ type: "REPLAY" })}
+        >
           Replay
         </button>
-        <button className="btn btn-primary" onClick={() => setGame({ type: "RETURN_TO_MAIN_MENU" })}>
+        <button
+          className="btn btn-primary"
+          onClick={() => setGame({ type: "RETURN_TO_MAIN_MENU" })}
+        >
           Return To Main Menu
         </button>
       </div>
     );
   }
-}
+};
 
 export default Result;

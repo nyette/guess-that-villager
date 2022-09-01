@@ -13,7 +13,10 @@ it("handles user input", async () => {
   userEvent.click(screen.queryByText(/Play/i));
   expect(screen.queryByText(/Loading/i)).toBeInTheDocument();
   const firstImg = await screen.findByAltText("villager");
-  expect(firstImg).toHaveAttribute("src", "https://acnhapi.com/v1/icons/villagers/354");
+  expect(firstImg).toHaveAttribute(
+    "src",
+    "https://acnhapi.com/v1/icons/villagers/354"
+  );
   expect(screen.queryByText(/Loading/i)).not.toBeInTheDocument();
   userEvent.type(screen.queryByRole("textbox"), "Pietro");
   expect(screen.queryByRole("textbox")).toHaveValue("Pietro");
@@ -23,7 +26,10 @@ it("handles user input", async () => {
   userEvent.click(screen.queryByText(/Start Next Round/i));
   expect(screen.queryByText(/Loading/i)).toBeInTheDocument();
   const nextImg = await screen.findByAltText("villager");
-  expect(nextImg).toHaveAttribute("src", "https://acnhapi.com/v1/icons/villagers/354");
+  expect(nextImg).toHaveAttribute(
+    "src",
+    "https://acnhapi.com/v1/icons/villagers/354"
+  );
   expect(screen.queryByText(/Loading/i)).not.toBeInTheDocument();
   expect(screen.queryByRole("textbox")).toHaveValue("");
   expect(screen.queryByText("Submit (10)")).toBeInTheDocument();
@@ -42,9 +48,7 @@ it("handles user input", async () => {
 it("tells the user about any errors", async () => {
   server.use(
     rest.get("https://acnhapi.com/v1/villagers/*", (req, res, ctx) => {
-      return res(
-        ctx.status(404)
-      )
+      return res(ctx.status(404));
     })
   );
   render(<App />);

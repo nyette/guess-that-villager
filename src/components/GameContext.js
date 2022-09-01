@@ -15,7 +15,7 @@ export const initialGame = {
   guessWasCorrect: null,
   music: null,
   score: 0,
-  timeLeft: 10
+  timeLeft: 10,
 };
 
 export const gameReducer = (game, action) => {
@@ -23,55 +23,55 @@ export const gameReducer = (game, action) => {
     case "CATCH_ERROR":
       return {
         ...game,
-        error: action.data
+        error: action.data,
       };
     case "START_GAME":
       return {
         ...game,
         selectedOption: "Play",
-        isRunning: true
+        isRunning: true,
       };
     case "START_FETCH":
       return {
         ...game,
-        isFetching: true
+        isFetching: true,
       };
     case "END_FETCH":
       return {
         ...game,
         isFetching: false,
-        villager: action.data
+        villager: action.data,
       };
     case "DECREASE_TIME_LEFT":
       return {
         ...game,
-        timeLeft: game.timeLeft - 1
+        timeLeft: game.timeLeft - 1,
       };
     case "CHANGE_GUESS":
       return {
         ...game,
-        guess: action.data
+        guess: action.data,
       };
     case "SUBMIT_GUESS":
       return {
         ...game,
         guessWasSubmitted: true,
-        timeLeft: 0
+        timeLeft: 0,
       };
     case "CHECK_GUESS":
       return {
         ...game,
-        guessWasCorrect: action.data
+        guessWasCorrect: action.data,
       };
     case "CHANGE_MUSIC":
       return {
         ...game,
-        music: action.data
+        music: action.data,
       };
     case "INCREASE_SCORE":
       return {
         ...game,
-        score: game.score + 1
+        score: game.score + 1,
       };
     case "START_NEXT_ROUND":
       return {
@@ -80,17 +80,17 @@ export const gameReducer = (game, action) => {
         guess: "",
         guessWasSubmitted: false,
         guessWasCorrect: null,
-        timeLeft: 10
+        timeLeft: 10,
       };
     case "REPLAY":
       return {
         ...initialGame,
         selectedOption: "Play",
-        isRunning: true
+        isRunning: true,
       };
     case "RETURN_TO_MAIN_MENU":
       return initialGame;
     default:
       return game;
   }
-}
+};

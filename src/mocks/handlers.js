@@ -5,12 +5,12 @@ export const handlers = [
     return res(
       ctx.status(200),
       ctx.json({
-        "id": 354,
-        "name": {
-          "name-USen": "Pietro"
+        id: 354,
+        name: {
+          "name-USen": "Pietro",
         },
-        "icon_uri": "https://acnhapi.com/v1/icons/villagers/354"
+        icon_uri: "https://acnhapi.com/v1/icons/villagers/354",
       })
-    )
-  })
+    );
+  }),
 ];

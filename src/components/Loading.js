@@ -2,7 +2,6 @@ import { useContext, useEffect } from "react";
 import GameContext from "./GameContext";
 
 const Loading = () => {
-  
   const { setGame } = useContext(GameContext);
 
   useEffect(() => {
@@ -13,11 +12,14 @@ const Loading = () => {
     };
     const getRandomVillager = async () => {
       setGame({
-        type: "START_FETCH"
+        type: "START_FETCH",
       });
       const minVillagerId = 1;
       const maxVillagerId = 391;
-      const randomVillagerId = getRandomIntInclusive(minVillagerId, maxVillagerId);
+      const randomVillagerId = getRandomIntInclusive(
+        minVillagerId,
+        maxVillagerId
+      );
       const apiUrl = "https://acnhapi.com/v1/villagers/";
       const randomVillagerUrl = apiUrl + randomVillagerId;
       try {
@@ -25,12 +27,12 @@ const Loading = () => {
         const randomVillager = await res.json();
         setGame({
           type: "END_FETCH",
-          data: randomVillager
+          data: randomVillager,
         });
       } catch (e) {
         setGame({
           type: "CATCH_ERROR",
-          data: e
+          data: e,
         });
       }
     };
@@ -40,7 +42,7 @@ const Loading = () => {
   useEffect(() => {
     setGame({
       type: "CHANGE_MUSIC",
-      data: "/assets/music/timer.mp3"
+      data: "/assets/music/timer.mp3",
     });
   }, [setGame]);
 
@@ -49,7 +51,6 @@ const Loading = () => {
       <h1>Loading...</h1>
     </div>
   );
-
-}
+};
 
 export default Loading;
