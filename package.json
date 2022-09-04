@@ -46,6 +46,7 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/dom": "^8.17.1",
     "eslint-config-prettier": "^8.5.0",
     "husky": "^7.0.2",
     "is-ci": "^3.0.0",
