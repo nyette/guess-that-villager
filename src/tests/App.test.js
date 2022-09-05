@@ -8,41 +8,41 @@ import App from "../components/App";
 
 it("handles user input", async () => {
   render(<App />);
-  expect(screen.queryByText(/Guess That Villager/i)).toBeInTheDocument();
+  expect(screen.getByText(/Guess That Villager/i)).toBeInTheDocument();
   // Play
-  userEvent.click(screen.queryByText(/Play/i));
-  expect(screen.queryByText(/Loading/i)).toBeInTheDocument();
+  userEvent.click(screen.getByText(/Play/i));
+  expect(screen.getByText(/Loading/i)).toBeInTheDocument();
   const firstImg = await screen.findByAltText("villager");
   expect(firstImg).toHaveAttribute(
     "src",
     "https://acnhapi.com/v1/icons/villagers/354"
   );
   expect(screen.queryByText(/Loading/i)).not.toBeInTheDocument();
-  userEvent.type(screen.queryByRole("textbox"), "Pietro");
-  expect(screen.queryByRole("textbox")).toHaveValue("Pietro");
-  userEvent.click(screen.queryByText(/Submit/i));
-  expect(screen.queryByText(/Correct/i)).toBeInTheDocument();
+  userEvent.type(screen.getByRole("textbox"), "Pietro");
+  expect(screen.getByRole("textbox")).toHaveValue("Pietro");
+  userEvent.click(screen.getByText(/Submit/i));
+  expect(screen.getByText(/Correct/i)).toBeInTheDocument();
   // Start Next Round
-  userEvent.click(screen.queryByText(/Start Next Round/i));
-  expect(screen.queryByText(/Loading/i)).toBeInTheDocument();
+  userEvent.click(screen.getByText(/Start Next Round/i));
+  expect(screen.getByText(/Loading/i)).toBeInTheDocument();
   const nextImg = await screen.findByAltText("villager");
   expect(nextImg).toHaveAttribute(
     "src",
     "https://acnhapi.com/v1/icons/villagers/354"
   );
   expect(screen.queryByText(/Loading/i)).not.toBeInTheDocument();
-  expect(screen.queryByRole("textbox")).toHaveValue("");
-  expect(screen.queryByText("Submit (10)")).toBeInTheDocument();
+  expect(screen.getByRole("textbox")).toHaveValue("");
+  expect(screen.getByText("Submit (10)")).toBeInTheDocument();
   act(() => {
     jest.advanceTimersByTime(10000);
   });
-  expect(screen.queryByText("Submitted")).toBeInTheDocument();
+  expect(screen.getByText("Submitted")).toBeInTheDocument();
   await screen.findByText(/Game Over/i);
   // Replay
-  expect(screen.queryByText(/Replay/i)).toBeInTheDocument();
+  expect(screen.getByText(/Replay/i)).toBeInTheDocument();
   // Return To Main Menu
-  userEvent.click(screen.queryByText(/Return To Main Menu/i));
-  expect(screen.queryByText(/Guess That Villager/i)).toBeInTheDocument();
+  userEvent.click(screen.getByText(/Return To Main Menu/i));
+  expect(screen.getByText(/Guess That Villager/i)).toBeInTheDocument();
 });
 
 it("tells the user about any errors", async () => {
@@ -52,12 +52,12 @@ it("tells the user about any errors", async () => {
     })
   );
   render(<App />);
-  expect(screen.queryByText(/Guess That Villager/i)).toBeInTheDocument();
-  userEvent.click(screen.queryByText(/Play/i));
-  expect(screen.queryByText(/Loading/i)).toBeInTheDocument();
+  expect(screen.getByText(/Guess That Villager/i)).toBeInTheDocument();
+  userEvent.click(screen.getByText(/Play/i));
+  expect(screen.getByText(/Loading/i)).toBeInTheDocument();
   await screen.findByText(/Error/i);
   expect(screen.queryByText(/Loading/i)).not.toBeInTheDocument();
   // Return To Main Menu
-  userEvent.click(screen.queryByText(/Return To Main Menu/i));
-  expect(screen.queryByText(/Guess That Villager/i)).toBeInTheDocument();
+  userEvent.click(screen.getByText(/Return To Main Menu/i));
+  expect(screen.getByText(/Guess That Villager/i)).toBeInTheDocument();
 });
