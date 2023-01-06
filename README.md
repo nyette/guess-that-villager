@@ -1,12 +1,16 @@
 # Guess That Villager
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 [![codecov](https://codecov.io/gh/Nyette/guess-that-villager/branch/master/graph/badge.svg?token=Y2TXPTHLU3)](https://codecov.io/gh/Nyette/guess-that-villager) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+
+Identify as many [Animal Crossing](https://animal-crossing.com/) villagers as you can!
+
+This game would not have been possible without the [ACNH API](https://acnhapi.com/).
 
 ## Available Scripts
 
-In the project directory, you can run:
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+In the root directory, you can run:
 
 ### `npm start`
 
