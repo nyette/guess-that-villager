@@ -1,31 +1,26 @@
-name: Running Code Coverage
+name: coverage
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
-  build:
+  coverage:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node: [14, 16]
+        node: [16]
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Set up Node.js ${{ matrix.node }}
+      - name: Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
 
-      - name: Install dependencies
-        run: npm install
+      - name: Cypress
+        uses: cypress-io/github-action@v5
 
-      - name: Run the tests
-        run: npm test -- --coverage
-
-      - name: Upload coverage to Codecov
+      - name: Codecov
         uses: codecov/codecov-action@v3
-        with:
-          fail_ci_if_error: true
