@@ -1,6 +1,6 @@
 # Guess That Villager
 
-[![codecov](https://codecov.io/gh/Nyette/guess-that-villager/branch/master/graph/badge.svg?token=Y2TXPTHLU3)](https://codecov.io/gh/Nyette/guess-that-villager) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier) [![Cypress.io](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)](https://www.cypress.io/)
+[![codecov](https://codecov.io/gh/Nyette/guess-that-villager/branch/main/graph/badge.svg?token=Y2TXPTHLU3)](https://codecov.io/gh/Nyette/guess-that-villager) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier) [![Cypress.io](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)](https://www.cypress.io/)
 
 Identify as many [Animal Crossing](https://animal-crossing.com/) villagers as you can!
 
