@@ -2,7 +2,7 @@
 
 describe("the game", () => {
   beforeEach(() => {
-    cy.visit("https://guess-that-villager.onrender.com/");
+    cy.visit("http://localhost:3000");
   });
 
   it("allows the user to continue, if their guess is correct", () => {
