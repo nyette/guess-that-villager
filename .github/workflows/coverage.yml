@@ -21,8 +21,14 @@ jobs:
 
       - name: Cypress
         uses: cypress-io/github-action@v5
+        with:
+          browser: chrome
+          headed: true
+          build: npm run build
+          start: npm start
 
       - name: Codecov
         uses: codecov/codecov-action@v3
         with:
-          directory: coverage/
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/clover.xml
