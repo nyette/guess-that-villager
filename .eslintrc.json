@@ -1,0 +1,9 @@
+{
+  "root": true,
+  "extends": [
+    "react-app",
+    "react-app/jest",
+    "plugin:cypress/recommended",
+    "prettier"
+  ]
+}

@@ -12,22 +12,10 @@
     "build": "react-scripts build",
     "test": "cypress run",
     "coverage": "nyc report",
+    "lint-staged": "lint-staged",
+    "prettier": "prettier --write .",
     "eject": "react-scripts eject",
     "prepare": "is-ci || husky install"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest",
-      "prettier"
-    ]
-  },
-  "lint-staged": {
-    "*.js": [
-      "eslint",
-      "prettier --write"
-    ],
-    "*.{md,html,css}": "prettier --write"
   },
   "browserslist": {
     "production": [
@@ -46,6 +34,7 @@
     "@cypress/instrument-cra": "^1.4.0",
     "cypress": "^12.3.0",
     "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-cypress": "^2.12.1",
     "husky": "^8.0.3",
     "is-ci": "^3.0.1",
     "lint-staged": "^13.1.0",
