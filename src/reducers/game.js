@@ -1,9 +1,3 @@
-import { createContext } from "react";
-
-const GameContext = createContext();
-
-export default GameContext;
-
 export const initialGame = {
   error: null,
   selectedOption: null,
@@ -25,7 +19,7 @@ export const gameReducer = (game, action) => {
         ...game,
         error: action.data,
       };
-    case "START_GAME":
+    case "PLAY":
       return {
         ...game,
         selectedOption: "Play",
@@ -73,7 +67,7 @@ export const gameReducer = (game, action) => {
         ...game,
         score: game.score + 1,
       };
-    case "START_NEXT_ROUND":
+    case "CONTINUE":
       return {
         ...game,
         villager: null,
@@ -88,7 +82,7 @@ export const gameReducer = (game, action) => {
         selectedOption: "Play",
         isRunning: true,
       };
-    case "RETURN_TO_MAIN_MENU":
+    case "QUIT":
       return initialGame;
     default:
       return game;
