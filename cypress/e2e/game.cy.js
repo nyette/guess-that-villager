@@ -15,7 +15,11 @@ describe("the game", () => {
     cy.get("input").should("have.value", "Pietro");
     cy.contains("Submit").click();
     cy.contains("Correct").should("be.visible");
-    cy.contains("Start Next Round").should("be.visible");
+    cy.contains("Continue").should("be.visible");
+    cy.contains("Continue").click();
+    cy.get("input").should("have.value", "");
+    cy.contains("Submit").click();
+    cy.contains("Game Over").should("be.visible");
   });
 
   it("allows the user to replay, if their guess is wrong", () => {
@@ -36,9 +40,9 @@ describe("the game", () => {
     );
     cy.contains("Play").click();
     cy.wait("@getVillager");
-    cy.contains("Error").should("be.visible");
-    cy.contains("Return To Main Menu").should("be.visible");
-    cy.contains("Return To Main Menu").click();
+    cy.contains("Oops").should("be.visible");
+    cy.contains("Quit").should("be.visible");
+    cy.contains("Quit").click();
     cy.contains("Guess That Villager").should("be.visible");
   });
 });

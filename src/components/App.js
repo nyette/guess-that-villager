@@ -1,7 +1,7 @@
 import { useReducer } from "react";
-import GameContext, { gameReducer, initialGame } from "./GameContext";
+import { gameReducer, initialGame } from "../reducers/game";
+import GameContext from "../contexts/game";
 import MainMenu from "./MainMenu";
-import Loading from "./Loading";
 import Error from "./Error";
 import Villager from "./Villager";
 import Result from "./Result";
@@ -14,14 +14,10 @@ const App = () => {
       if (game.guessWasSubmitted) {
         return <Result />;
       } else {
-        if (game.villager) {
-          return <Villager />;
+        if (game.error) {
+          return <Error />;
         } else {
-          if (game.error) {
-            return <Error />;
-          } else {
-            return <Loading />;
-          }
+          return <Villager />;
         }
       }
     } else {
