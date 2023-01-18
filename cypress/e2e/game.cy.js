@@ -1,8 +1,6 @@
-/* eslint-disable */
-
 describe("the game", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:3000");
+    cy.visit("/");
   });
 
   it("allows the user to continue, if their guess is correct", () => {
