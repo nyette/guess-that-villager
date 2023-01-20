@@ -1,25 +1,18 @@
-import { useContext } from "react";
-import GameContext from "../contexts/game";
-import MusicPlayer from "./MusicPlayer";
+import { useSelector } from "react-redux";
 import Button from "./Button";
+import MusicPlayer from "./MusicPlayer";
 
 const Result = () => {
-  const { game } = useContext(GameContext);
+  const game = useSelector((state) => state.game);
 
   return (
     <div className="container">
       <h1>Score</h1>
       <p>{game.score}</p>
-      {game.guessWasCorrect ? (
-        <h2 className="correct">Correct</h2>
-      ) : (
-        <h2 className="wrong">Game Over</h2>
-      )}
-      {game.guessWasCorrect ? (
-        <Button content="Continue" />
-      ) : (
-        <Button content="Replay" />
-      )}
+      <h2 className={game.guessWasCorrect ? "correct" : "wrong"}>
+        {game.guessWasCorrect ? "Correct" : "Game Over"}
+      </h2>
+      <Button content={game.guessWasCorrect ? "Start Next Round" : "Replay"} />
       <Button content="Quit" />
       <MusicPlayer />
     </div>

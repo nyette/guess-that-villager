@@ -1,9 +1,21 @@
-import { useContext, useRef, useEffect } from "react";
-import GameContext from "../contexts/game";
+import { useSelector, useDispatch } from "react-redux";
+import { useRef, useEffect } from "react";
+import {
+  startFetch,
+  endFetch,
+  catchError,
+  handleMusic,
+  decreaseTimeLeft,
+  changeGuess,
+  handleCorrectGuess,
+  handleWrongGuess,
+} from "../slices/game";
 import MusicPlayer from "./MusicPlayer";
 
 const Villager = () => {
-  const { game, setGame } = useContext(GameContext);
+  const game = useSelector((state) => state.game);
+
+  const dispatch = useDispatch();
 
   const submitButtonRef = useRef(null);
 
@@ -14,9 +26,6 @@ const Villager = () => {
       return Math.floor(Math.random() * (max - min + 1) + min);
     };
     const getRandomVillager = async () => {
-      setGame({
-        type: "START_FETCH",
-      });
       const minVillagerId = 1;
       const maxVillagerId = 391;
       const randomVillagerId = getRandomIntInclusive(
@@ -28,28 +37,20 @@ const Villager = () => {
       try {
         const res = await fetch(randomVillagerUrl);
         const randomVillager = await res.json();
-        setGame({
-          type: "END_FETCH",
-          data: randomVillager,
-        });
+        dispatch(endFetch(randomVillager));
       } catch (e) {
-        setGame({
-          type: "CATCH_ERROR",
-          data: e,
-        });
+        dispatch(catchError(e));
       }
     };
+    dispatch(startFetch());
     getRandomVillager();
-  }, [setGame]);
+  }, [dispatch]);
 
   useEffect(() => {
     if (game.villager) {
-      setGame({
-        type: "CHANGE_MUSIC",
-        data: "/assets/music/timer.mp3",
-      });
+      dispatch(handleMusic());
     }
-  }, [setGame, game.villager]);
+  }, [game.villager, dispatch]);
 
   useEffect(() => {
     if (game.villager) {
@@ -57,48 +58,22 @@ const Villager = () => {
         if (game.timeLeft === 0) {
           submitButtonRef.current.click();
         } else {
-          setGame({
-            type: "DECREASE_TIME_LEFT",
-          });
+          dispatch(decreaseTimeLeft());
         }
       }, 1000);
       return () => clearTimeout(countdown);
     }
-  }, [setGame, game.villager, game.timeLeft]);
+  }, [game.villager, game.timeLeft, dispatch]);
 
-  const handleChange = (e) => {
-    setGame({
-      type: "CHANGE_GUESS",
-      data: e.target.value,
-    });
-  };
+  const handleChange = (e) => dispatch(changeGuess(e.target.value));
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setGame({
-      type: "SUBMIT_GUESS",
-    });
-    if (game["guess"] === game["villager"]["name"]["name-USen"]) {
-      setGame({
-        type: "CHECK_GUESS",
-        data: true,
-      });
-      setGame({
-        type: "INCREASE_SCORE",
-      });
-      setGame({
-        type: "CHANGE_MUSIC",
-        data: "/assets/music/correct.mp3",
-      });
+    const guessIsCorrect = game.guess === game.villager.name["name-USen"];
+    if (guessIsCorrect) {
+      dispatch(handleCorrectGuess());
     } else {
-      setGame({
-        type: "CHECK_GUESS",
-        data: false,
-      });
-      setGame({
-        type: "CHANGE_MUSIC",
-        data: "/assets/music/wrong.mp3",
-      });
+      dispatch(handleWrongGuess());
     }
   };
 

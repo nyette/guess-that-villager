@@ -1,10 +1,9 @@
-import { useContext } from "react";
-import GameContext from "../contexts/game";
+import { useSelector } from "react-redux";
 
 const MusicPlayer = () => {
-  const { game } = useContext(GameContext);
+  const music = useSelector((state) => state.game.music);
 
-  return <audio src={game.music} autoPlay></audio>;
+  return <audio src={music} autoPlay></audio>;
 };
 
 export default MusicPlayer;

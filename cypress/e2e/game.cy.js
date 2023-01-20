@@ -15,8 +15,8 @@ describe("the game", () => {
     cy.get("input").should("have.value", "Pietro");
     cy.contains("Submit").click();
     cy.contains("Correct").should("be.visible");
-    cy.contains("Continue").should("be.visible");
-    cy.contains("Continue").click();
+    cy.contains("Start Next Round").should("be.visible");
+    cy.contains("Start Next Round").click();
     cy.get("input").should("have.value", "");
     cy.contains("Submit").click();
     cy.contains("Game Over").should("be.visible");

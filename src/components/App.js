@@ -1,13 +1,11 @@
-import { useReducer } from "react";
-import { gameReducer, initialGame } from "../reducers/game";
-import GameContext from "../contexts/game";
+import { useSelector } from "react-redux";
 import MainMenu from "./MainMenu";
 import Error from "./Error";
 import Villager from "./Villager";
 import Result from "./Result";
 
 const App = () => {
-  const [game, setGame] = useReducer(gameReducer, initialGame);
+  const game = useSelector((state) => state.game);
 
   const renderGame = () => {
     if (game.selectedOption === "Play") {
@@ -25,11 +23,7 @@ const App = () => {
     }
   };
 
-  return (
-    <GameContext.Provider value={{ game, setGame }}>
-      <div className="app">{renderGame()}</div>
-    </GameContext.Provider>
-  );
+  return <div className="app">{renderGame()}</div>;
 };
 
 export default App;
