@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import resetState from "../helpers/resetState";
 
 const initialGame = {
   error: null,
@@ -12,15 +13,6 @@ const initialGame = {
   music: null,
   score: 0,
   timeLeft: 10,
-};
-
-const resetState = (current, initial) => {
-  const initialKeysArray = Object.keys(initial);
-  const initialKeys = new Set(initialKeysArray);
-  for (const key of initialKeys) {
-    current[key] = initial[key];
-  }
-  return current;
 };
 
 export const gameSlice = createSlice({
