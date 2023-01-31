@@ -1,17 +1,22 @@
+import styled from "styled-components";
 import { useSelector } from "react-redux";
 import Button from "./Button";
 import MusicPlayer from "./MusicPlayer";
+
+const StyledHeading = styled.h1`
+  color: ${(props) => (props.guessWasCorrect ? "green" : "red")};
+`;
 
 const Result = () => {
   const game = useSelector((state) => state.game);
 
   return (
-    <div className="container">
-      <h1>Score</h1>
-      <p>{game.score}</p>
-      <h2 className={game.guessWasCorrect ? "correct" : "wrong"}>
+    <div>
+      <StyledHeading guessWasCorrect={game.guessWasCorrect}>
         {game.guessWasCorrect ? "Correct" : "Game Over"}
-      </h2>
+      </StyledHeading>
+      <h2>Score</h2>
+      <p>{game.score}</p>
       <Button content={game.guessWasCorrect ? "Start Next Round" : "Replay"} />
       <Button content="Quit" />
       <MusicPlayer />

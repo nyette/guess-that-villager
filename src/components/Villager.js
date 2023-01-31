@@ -1,3 +1,6 @@
+import styled from "styled-components";
+import { StyledButton } from "./Button";
+import { modes } from "../slices/settings";
 import { useSelector, useDispatch } from "react-redux";
 import { useRef, useEffect } from "react";
 import {
@@ -12,8 +15,29 @@ import {
 } from "../slices/game";
 import MusicPlayer from "./MusicPlayer";
 
+const StyledImage = styled.img`
+  border-radius: 50%;
+  height: auto;
+  margin: 1rem;
+  padding: 1rem;
+  width: 50%;
+`;
+
+const StyledInput = styled.input`
+  background: ${(props) =>
+    props.dark ? modes.dark.background : modes.light.background};
+  color: ${(props) => (props.dark ? modes.dark.color : modes.light.color)};
+  display: block;
+  font-size: 1rem;
+  margin: 1rem auto;
+  max-width: 80%;
+  padding: 1rem;
+`;
+
 const Villager = () => {
   const game = useSelector((state) => state.game);
+
+  const settings = useSelector((state) => state.settings);
 
   const dispatch = useDispatch();
 
@@ -79,30 +103,31 @@ const Villager = () => {
 
   if (game.villager) {
     return (
-      <div className="container">
-        <img src={game["villager"]["icon_uri"]} alt="villager" />
+      <div>
+        <StyledImage src={game.villager["icon_uri"]} alt="villager" />
         <form onSubmit={handleSubmit}>
-          <input
+          <StyledInput
             type="text"
             placeholder="Enter the villager's name"
             name="guess"
             value={game.guess}
             onChange={handleChange}
+            dark={settings.mode === "dark"}
           />
-          <button
+          <StyledButton
             type="submit"
             ref={submitButtonRef}
-            className="btn btn-primary"
+            dark={settings.mode === "dark"}
           >
             {game.timeLeft > 0 ? `Submit (${game.timeLeft})` : "Submitted"}
-          </button>
+          </StyledButton>
         </form>
         <MusicPlayer />
       </div>
     );
   } else {
     return (
-      <div className="container">
+      <div>
         <h1>Loading...</h1>
       </div>
     );

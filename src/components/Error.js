@@ -1,9 +1,14 @@
+import styled from "styled-components";
 import Button from "./Button";
+
+const StyledHeading = styled.h1`
+  color: red;
+`;
 
 const Error = () => {
   return (
-    <div className="container">
-      <h1 className="wrong">Oops</h1>
+    <div>
+      <StyledHeading>Oops</StyledHeading>
       <p>The server might be down. Try again later.</p>
       <Button content="Quit" />
     </div>
