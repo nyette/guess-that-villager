@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { StyledButton } from "./Button";
 import { modes } from "../slices/settings";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
 import { useRef, useEffect } from "react";
 import {
@@ -26,6 +28,8 @@ const StyledImage = styled.img`
 const StyledInput = styled.input`
   background: ${(props) =>
     props.dark ? modes.dark.background : modes.light.background};
+  border: 2px solid
+    ${(props) => (props.dark ? modes.dark.color : modes.light.color)};
   color: ${(props) => (props.dark ? modes.dark.color : modes.light.color)};
   display: block;
   font-size: 1rem;
@@ -129,6 +133,7 @@ const Villager = () => {
     return (
       <div>
         <h1>Loading...</h1>
+        <FontAwesomeIcon icon={faSpinner} spin />
       </div>
     );
   }

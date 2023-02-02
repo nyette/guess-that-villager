@@ -1,5 +1,11 @@
 import styled from "styled-components";
 import { modes } from "../slices/settings";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPlay,
+  faRepeat,
+  faArrowRightFromBracket,
+} from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
 import { play, startNextRound, replay, quit } from "../slices/game";
 
@@ -21,19 +27,36 @@ const Button = ({ content }) => {
 
   const dispatch = useDispatch();
 
+  const mapping = {
+    Play: {
+      cb: play,
+      icon: faPlay,
+    },
+    "Start Next Round": {
+      cb: startNextRound,
+      icon: faRepeat,
+    },
+    Replay: {
+      cb: replay,
+      icon: faRepeat,
+    },
+    Quit: {
+      cb: quit,
+      icon: faArrowRightFromBracket,
+    },
+  };
+
   const handleClick = () => {
-    const mapping = {
-      Play: play,
-      "Start Next Round": startNextRound,
-      Replay: replay,
-      Quit: quit,
-    };
-    dispatch(mapping[content]());
+    dispatch(mapping[content].cb());
+  };
+
+  const handleIcon = () => {
+    return mapping[content].icon;
   };
 
   return (
     <StyledButton dark={settings.mode === "dark"} onClick={handleClick}>
-      {content}
+      <FontAwesomeIcon icon={handleIcon()} /> {content}
     </StyledButton>
   );
 };

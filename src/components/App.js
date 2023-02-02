@@ -1,21 +1,26 @@
 import styled from "styled-components";
 import { modes } from "../slices/settings";
 import { useSelector } from "react-redux";
+import Header from "./Header";
 import MainMenu from "./MainMenu";
 import Error from "./Error";
 import Villager from "./Villager";
 import Result from "./Result";
 
 const StyledApp = styled.div`
-  align-items: center;
   background: ${(props) =>
     props.dark ? modes.dark.background : modes.light.background};
   color: ${(props) => (props.dark ? modes.dark.color : modes.light.color)};
+  height: 100%;
+  margin: 0;
+`;
+
+const StyledMain = styled.main`
+  align-items: center;
   display: flex;
   flex-direction: column;
-  height: 100%;
   justify-content: center;
-  margin: 0;
+  padding: 1rem;
 `;
 
 const App = () => {
@@ -38,7 +43,12 @@ const App = () => {
     }
   };
 
-  return <StyledApp dark={settings.mode === "dark"}>{renderGame()}</StyledApp>;
+  return (
+    <StyledApp dark={settings.mode === "dark"}>
+      <Header />
+      <StyledMain>{renderGame()}</StyledMain>
+    </StyledApp>
+  );
 };
 
 export default App;
