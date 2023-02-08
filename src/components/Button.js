@@ -2,11 +2,14 @@ import styled from "styled-components";
 import { modes } from "../slices/settings";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faSun,
+  faMoon,
   faPlay,
   faRepeat,
   faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
+import { enableLightMode, enableDarkMode } from "../slices/settings";
 import { play, startNextRound, replay, quit } from "../slices/game";
 
 export const StyledButton = styled.button`
@@ -22,12 +25,25 @@ export const StyledButton = styled.button`
   padding: 1rem;
 `;
 
+const StyledSettingsButton = styled(StyledButton)`
+  border-radius: 50%;
+  border-style: none;
+`;
+
 const Button = ({ content }) => {
   const settings = useSelector((state) => state.settings);
 
   const dispatch = useDispatch();
 
   const mapping = {
+    "Enable Light Mode": {
+      cb: enableLightMode,
+      icon: faSun,
+    },
+    "Enable Dark Mode": {
+      cb: enableDarkMode,
+      icon: faMoon,
+    },
     Play: {
       cb: play,
       icon: faPlay,
@@ -54,11 +70,22 @@ const Button = ({ content }) => {
     return mapping[content].icon;
   };
 
-  return (
-    <StyledButton dark={settings.mode === "dark"} onClick={handleClick}>
-      <FontAwesomeIcon icon={handleIcon()} /> {content}
-    </StyledButton>
-  );
+  if (content.startsWith("Enable")) {
+    return (
+      <StyledSettingsButton
+        dark={settings.mode === "dark"}
+        onClick={handleClick}
+      >
+        <FontAwesomeIcon icon={handleIcon()} />
+      </StyledSettingsButton>
+    );
+  } else {
+    return (
+      <StyledButton dark={settings.mode === "dark"} onClick={handleClick}>
+        <FontAwesomeIcon icon={handleIcon()} /> {content}
+      </StyledButton>
+    );
+  }
 };
 
 export default Button;
